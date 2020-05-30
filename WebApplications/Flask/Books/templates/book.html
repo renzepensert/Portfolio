@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}
+	Book page
+{% endblock %}
+
+{% block body %}
+	<h1 class="book-title">{{ book['title'] }}</h1>
+	<h4 class="book-title">By {{ book['author'] }}</h4>
+	<br>
+	<h4 class="book-title">ISBN {{ book['isbn'] }}, published in {{ book['year'] }}</h4>
+	<br><br>
+	<p class="book-title">Average rating on Goodreads is {{ review['average_rating'] }} ({{ review['work_ratings_count'] }} ratings)</p>
+	<br><br>
+	<div class="scrollable-div">
+		{% if reviews %}
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">User</th>
+						<th scope="col">Rating</th>
+						<th scope="col">Review</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for review in reviews %}
+						<tr>
+							<th scope="row">{{ loop.index }}</th>
+							<td>{{ names[loop.index -1] }}</td>
+							<td>
+								{% for i in range(review["stars"]) %}
+									<span class="fa fa-star checked"></span>
+								{% endfor %}
+								
+								{% for i in range(5 - review["stars"]) %}
+									<span class="fa fa-star"></span>
+								{% endfor %}
+							</td>
+							<td>{{ review["comment"] }}</td>
+							<td>{{ review["postdate"] }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+	<br>
+	<form class="review-form" action="{{ url_for('review') }}" method="post">
+		<div class='parent inline-flex-parent'>
+			<div class='child inline-block-child comment'><input type="text" name="comment" class="form-control comment child inline-block-child" placeholder="Write a review" required autofocus></div>
+			<select class="stars" name="stars" style="margin-left: 10px;">
+				<option value="1">1 Star</option>
+				<option value="2">2 Stars</option>
+				<option selected value="3">3 Stars</option>
+				<option value="4">4 Stars</option>
+				<option value="5">5 Stars</option>
+			</select>
+			<right class="rt-align"><div class='child inline-block-child post'><button class="brn btn-lg btn-primary btn-block child inline-block-child submit-btn" type="submit" style="padding-top: 4px; padding-bottom: 				4px;">Post</button></div></right>
+		</div>
+	</form>
+{% endblock %}
+		
