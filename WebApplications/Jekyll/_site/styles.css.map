@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sources": [
+		"styles.scss"
+	],
+	"sourcesContent": [
+		"%message {\n     font-family: sans-serif;\n     font-size: 18px;\n\t color:lightseagreen;\n }\n\n .specificMessage {\n     @extend %message;\n     text-align:center;\n }\n\n$padding: 40px;\n\n\n.learn{\n\tpadding: $padding;\n\tspan{\n\t\tcolor:lightseagreen;\n\t}\n}\n \n"
+	],
+	"names": [],
+	"mappings": "AAMC,AAND,gBAMiB,CANR,EACJ,WAAW,EAAE,UAAU,EACvB,SAAS,EAAE,IAAI,EAClB,KAAK,EAAC,aAAa,GACnB;;AAED,AAAA,gBAAgB,CAAC,EAEb,UAAU,EAAC,MAAM,GACpB;;AAKF,AAAA,MAAM,CAAA,EACL,OAAO,EAJE,IAAI,GAQb;;AALD,AAEC,MAFK,CAEL,IAAI,CAAA,EACH,KAAK,EAAC,aAAa,GACnB"
+}

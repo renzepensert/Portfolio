@@ -1,0 +1,58 @@
+h1 {
+	text-align:center;
+	font-family:Arial, sans-serif;
+	color:lightseagreen;
+	font-size: 36px;
+	
+}
+
+.header{
+   	width: 100%;
+          
+    background: black;
+    padding: 10px 0;
+    color: lightseagreen;
+    top: 0;
+}
+
+nav {
+    font-size:22px;
+	min-height:70px;
+	color: #fff;
+    text-decoration: none;
+	text-align:center;
+}
+
+.introduction{
+	color:#fc0339;
+	text-align:center;
+	font-size:32;
+}
+
+.highlight{
+	color:#fc0339;
+}
+
+.video-container{
+		position: relative;
+}
+
+
+#welcome{
+	font-size:36px;
+	text-align:center;
+	color:#fc0339;
+	font-family:Bebas Neue, sans-serif;
+}
+
+@media (min-width:500px){
+	h1{
+		font-size:36px;
+	}
+}
+
+@media (max-width:499px){
+	h1{
+		font-size:28px;
+	}
+}
