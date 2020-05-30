@@ -1,0 +1,334 @@
+{% extends "bootstrap/base.html" %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Menu
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pinocchio's Pizza & Subs</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            {% if not current_user.is_authenticated %}
+			<li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+			{% endif %}
+			<li><a href="{{ url_for('cart') }}">Shopping Cart</a></li>
+			<li><a href="{{ url_for('pizza') }}">Menu</a></li>
+			{% if current_user.is_authenticated %}
+			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+			{% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Menu</h1>
+        <p class="lead">Order your favourite dishes here online.</p>
+      </div>
+
+    </div><!-- /.container -->
+	
+	<section id = "menu">
+	<h1>Regular Pizzas</h1>
+	<br>
+	
+	
+	<table>
+		<thead>
+			<tr>
+				<th class="table">Name</th>
+				<th class="table">Size</th>
+				<th class="table">Topping 1</th>
+				<th class="table">Topping 2</th>
+				<th class="table">Topping 3</th>
+				<th class="table">Topping 4</th>
+				
+			</tr>
+		</thead>
+			
+			{% for pizza in regular %}
+			<tr>
+				<form class="form-signin" method="POST" action="/addtocart">
+				<td>
+					{{ pizza.name }}
+				</td>
+				<td>
+					
+					  <input type="radio" id="small" name="radio" value="small" checked="checked">
+					  <label for="small">Small</label><br>
+					  <input type="radio" id="large" name="radio" value="large">
+					  <label for="large">Large</label>
+					 
+				</td>
+			
+				<td>
+					<select name=toppings1 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name=toppings2 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name=toppings3 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				
+				<td>
+					<select name=toppings4 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				
+				
+				<td>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="AddCart()" value="regular {{ pizza.name }}" name="order">Add to Cart</button>
+					
+				</td>
+				</form>
+			</tr>
+			{% endfor %}
+	</table>
+	<h1>Sicilian Pizzas</h1>
+	<table>
+		<thead>
+			<tr>
+				<th class="table">Name</th>
+				<th class="table">Size</th>
+				<th class="table">Topping 1</th>
+				<th class="table">Topping 2</th>
+				<th class="table">Topping 3</th>
+				<th class="table">Topping 4</th>
+				
+			</tr>
+		</thead>
+			{% for pizza in sicilian %}
+			<tr>
+				<form class="form-signin" method="POST" action="/addtocart">
+				<td>
+					{{ pizza.name }}
+				</td>
+				<td>
+					
+					  <input type="radio" id="small" name="radio" value="small" checked="checked">
+					  <label for="small">Small</label><br>
+					  <input type="radio" id="large" name="radio" value="large">
+					  <label for="large">Large</label>
+					 
+				</td>
+			
+				<td>
+					<select name=toppings1 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name=toppings2 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name=toppings3 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				
+				<td>
+					<select name=toppings4 method="GET" action="/">
+					{% for topping in toppings %}
+						<option value= "{{topping.name}}" SELECTED>{{topping.name}}</option>"
+					{% endfor %}
+					</select>
+				</td>
+				
+				
+				<td>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="AddCart()" value="sicilian {{ pizza.name }}" 					name="order">Add to Cart</button>
+					
+				</td>
+				</form>
+			</tr>
+			{% endfor %}
+			
+	</table> 
+	
+	</table>
+	<h1>Subs</h1>
+	<table>
+		<thead>
+			<tr>
+				<th class="table">Name</th>
+				<th class="table">Size</th>
+				<th class="table">Price Small</th>
+				<th class="table">Price Large</th>
+				<th class="table">Extra</th>
+			</tr>
+		</thead>
+			{% for sub in subs %}
+			<form class="form-signin" method="POST" action="/addtocart">
+			<tr>
+				<td>
+					{{ sub.name }}
+				</td>
+				<td>
+				  {% if sub.name != "sausage and peppers and onions" %}
+				  <input type="radio" id="small" name="radio" value="small" checked="checked">
+				  <label for="small">Small</label><br>
+				  {% endif %}
+				  <input type="radio" id="large" name="radio" value="large">
+				  <label for="large">Large</label>
+				</td>
+				<td>
+					{% if sub.name != "sausage and peppers and onions" %}
+					{{ sub.price }}
+					{% endif %}
+				</td>
+				<td>
+					{{ sub.price2 }}
+				</td>
+				<td>
+						{% if sub.name != "Steak and Cheese" %}
+						<input type="checkbox" id="cheese" name="Extra Cheese">
+						<label for="scales">Extra Cheese 0.50</label>
+						{% endif %}
+						
+						{% if sub.name == "Steak and Cheese" %}
+						{% for extra in extras %}
+						<input type="checkbox" id="cheese" name="{{ extra.name }}">
+						<label for="scales">{{ extra.name }} {{ extra.price }}</label> <br>
+						{% endfor %}
+						{% endif %}
+					
+				</td>
+				<td>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="AddCart()" value="sub {{ sub.name }}" 					name="order">Add to Cart</button>
+					</form>
+					
+				</td>
+				
+			</tr>
+			
+			{% endfor %}
+			
+	</table>
+	
+	</table>
+	<h1>Platters</h1>
+	<section id="platter">
+	<table>
+		<thead>
+			<tr>
+				<th class="table">Name</th>
+				<th class="table">Size</th>
+				<th class="table">Price Small</th>
+				<th class="table">Price Large</th>
+			</tr>
+		</thead>
+					{% for platter in platters %}
+			<form class="form-signin" method="POST" action="/addtocart">
+			<tr>
+				<td>
+					{{ platter.name }}
+				</td>
+				<td>
+				  <input type="radio" id="small" name="radio" value="small" checked="checked">
+				  <label for="small">Small</label><br>
+				  <input type="radio" id="large" name="radio" value="large">
+				  <label for="large">Large</label>
+				</td>
+				<td>
+					{{ platter.price }}
+				</td>
+				<td>
+					{{ platter.price2 }}
+				</td>
+				<td>
+					<button class="btn btn-lg btn-primary btn-block" anchor="platter" type="submit" onclick="AddCart()" value="platter {{ 					platter.name }}" name="order">Add to Cart</button>
+					</form>
+					
+				</td>
+				
+			</tr>
+		
+					{% endfor %}
+			
+	</table>
+	
+	<h1>Pastas and Salads</h1>
+	<section id="pasta">
+	<table>
+		<thead>
+			<tr>
+				<th class="table">Name</th>
+				<th class="table">Price</th>
+			</tr>
+		</thead>
+			{% for pasta in other %}
+			<form class="form-signin" method="POST" action="/addtocart" anchor="pasta">
+			<tr>
+				<td>
+					{{ pasta.name }}
+				</td>
+				<td>
+					{{ pasta.price }}
+				</td>
+				<td>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" anchor="pasta" onclick="AddCart()" value="pasta {{ 					pasta.name }}" name="order">Add to Cart</button>
+					</form>
+					
+				</td>
+			</tr>
+		</form>
+			{% endfor %}
+			
+	</table>
+	<script>
+		function AddCart(){
+			alert("Added to Shopping Cart");
+		}
+	</script>
+	
+	
+	
+	
+	
+{% endblock %}

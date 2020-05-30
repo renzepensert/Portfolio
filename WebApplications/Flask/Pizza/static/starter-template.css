@@ -1,0 +1,42 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+  color: dodgerblue;
+}
+.table {
+	width:2%;
+	color: dodgerblue;
+}
+td{
+	text-align: center;
+	width:5%;
+}
+th{
+	text-align: center;
+	
+}
+h1{
+	text-align: center;
+}
+
+.text{
+	text-align: center;
+	color: dodgerblue;
+	font-size: 20px;
+}
+
+.orders-cart{
+	padding-left: 35%;
+	margin-left: 10px;
+	color: dodgerblue;
+	font-size: 18px;
+}
+
+.bluetext{
+	color: dodgerblue;
+	margin-left: 35%;
+	font-size: 20px;
+}

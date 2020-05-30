@@ -1,0 +1,74 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Pinocchio's Pizza & Subs
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+<style>
+	body{
+  	  background-image: url('static/Pictures/background.jpg');
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pinocchio's Pizza & Subs</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            {% if not current_user.is_authenticated %}
+			<li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+			{% endif %}
+			<li><a href="{{ url_for('cart') }}">Shopping Cart</a></li>
+			<li><a href="{{ url_for('pizza') }}">Menu</a></li>
+			{% if current_user.is_authenticated %}
+			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+			{% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Pinocchio's Pizza & Subs</h1>
+        <p class="lead">WhatSub?</p>
+      </div>
+	  <div class="bluetext">
+	  Our phone numbers are 617-876-4897 or 617-876-0012 <br>
+
+	  Our fax number is 617-661-6188<br>
+
+	  Find us on Twitter @PinocchiosPizz<br>
+
+	  And Instagram @pinocchiospizza1<br>
+
+	  Our mailing address is: pinocchiospizza1@gmail.com <br>
+	  <br>
+	  Pinocchio's Pizza <br>
+	  74 Winthrop Street <br>
+	  Cambridge, MA 02138 <br>
+	  <br>
+  </div>
+	  
+	  
+    </div><!-- /.container -->
+{% endblock %}
