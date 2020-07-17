@@ -37,8 +37,6 @@ Session(app)
 # Configure secret key
 app.secret_key = os.environ['SECRET_KEY']
 
-#app.config["SECRET_KEY"] = "2b18f1021903cff36d48a38ab2033801f12649d6df506584"
-
 # Configure migrations
 Migrate(app, db)
 
