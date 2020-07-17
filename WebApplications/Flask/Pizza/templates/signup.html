@@ -75,9 +75,9 @@ Sign Up
 			// Initialize new request
 			const request = new XMLHttpRequest();
 			const username = document.getElementsByName('username')[0].value;
-			console.log(username)
+			
 			request.open('POST', '/checkuser');
-			console.log("test999");
+			
 			
 			// Callback funtion for when request completes
 			request.onload = () => {
@@ -86,12 +86,12 @@ Sign Up
 				const data = JSON.parse(request.responseText);
 				
 				if (data.success === true) {
-					console.log("if");
+					
 					document.querySelector('.form-signin').submit();
 					
 				}
 				else {
-					console.log("else");
+					
 					document.querySelector('#result').innerHTML = 'Username already taken';
 				}
 			}
@@ -106,8 +106,6 @@ Sign Up
 			
 		};
 	});
-			
-
 </script>
 
 

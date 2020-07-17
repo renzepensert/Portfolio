@@ -34,10 +34,10 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["USE_SESSION_FOR_NEXT"] = True
 Session(app)
 
-# Configure secret key , zelf geadd
-#app.secret_key = os.environ['SECRET_KEY']
+# Configure secret key
+app.secret_key = os.environ['SECRET_KEY']
 
-app.config["SECRET_KEY"] = "2b18f1021903cff36d48a38ab2033801f12649d6df506584"
+#app.config["SECRET_KEY"] = "2b18f1021903cff36d48a38ab2033801f12649d6df506584"
 
 # Configure migrations
 Migrate(app, db)
@@ -68,7 +68,6 @@ class MyModelView(ModelView):
         if user:
             if user.isadmin is True:
             
-                
                 return current_user.is_authenticated
 
 # Admin page
@@ -112,7 +111,7 @@ def is_safe_url(target):
            ref_url.netloc == test_url.netloc
     
 
-# Checks if username already excists 
+# Checks if username already exists 
 @app.route("/checkuser", methods=["POST"])
 def checkuser():
     # Make a list of all usernames
@@ -145,11 +144,15 @@ def signup():
         else:
             #Create new account    
             hashed_password = generate_password_hash(request.form.get("password"), method='sha256')
-            new_user = User(username=request.form.get("username"), email=request.form.get("email"), password=hashed_password, firstname=request.form.get("firstname"), lastname=request.form.get("firstname"), isadmin=False)
+            
+            new_user = User(username=request.form.get("username"), email=request.form.get("email"), 
+            password=hashed_password, firstname=request.form.get("firstname"), 
+            lastname=request.form.get("firstname"), isadmin=False)
+            
+            # Add user and commit to database
             db.session.add(new_user)
             db.session.commit()
                 
-            # moet nog een javascript message voor new user has been created
             return redirect(url_for("login"))
     
     return render_template("signup.html")
@@ -160,7 +163,7 @@ def signup():
 @login_required
 def addtocart():
     
-   
+    # Count the amount of toppings selected
     topping_amount = 0
     if request.form.get("toppings1") != "None":
         topping_amount = topping_amount + 1
@@ -283,6 +286,7 @@ def addtocart():
             
             
         new_order = Cart(userid=current_user.id, username=current_user.username, order=request.form.get("order") + " " + request.form.get("radio") + " " + str(extra), total=price)
+        
         db.session.add(new_order)
         db.session.commit()
     
@@ -295,7 +299,9 @@ def addtocart():
                 price = platter[0].price
             if size == 2:
                 price = platter[0].price2
+                
         new_order = Cart(userid=current_user.id, username=current_user.username, order=request.form.get("order") + " " + request.form.get("radio"), total=price)
+        
         db.session.add(new_order)
         db.session.commit()
         
@@ -305,7 +311,10 @@ def addtocart():
         pasta = Other.query.filter_by(name=pastaname)
         if pasta:
             price = pasta[0].price
-        new_order = Cart(userid=current_user.id, username=current_user.username, order=request.form.get("order"), total=float(price))
+        
+        new_order = Cart(userid=current_user.id, username=current_user.username, order=request.form.get("order"), 
+        total=float(price))
+        
         db.session.add(new_order)
         db.session.commit()
     
@@ -353,12 +362,13 @@ def pizza():
     toppings = Toppings.query.all()
     extras = Extras.query.all()
        
-    return render_template("pizza.html", regular=regular, sicilian=sicilian, subs=subs, platters=platters, other=other, toppings=toppings, extras=extras)
+    return render_template("pizza.html", regular=regular, sicilian=sicilian, subs=subs, platters=platters, other=other,
+    toppings=toppings, extras=extras)
     
 # Empty Shopping Cart
-@app.route("/emptycard", methods=["POST"])
+@app.route("/emptycart", methods=["POST"])
 @login_required
-def emptycard():
+def emptycart():
     cart = Cart.query.filter_by(userid=current_user.id).all()
     for cartlist in cart:
         empty = Cart.query.filter_by(userid=current_user.id).first()
@@ -380,11 +390,15 @@ def payout():
     ordernumber = Order.query.order_by(-Order.ordernumber).first()
     ordernumber = ordernumber.ordernumber + 1
     
-    for cardlist in cart:
+    for cartlist in cart:
+        # Removes the order from cart
         payout = Cart.query.filter_by(userid=current_user.id).first()
         db.session.delete(payout)
         
-        pay = Order(userid=current_user.id, username=current_user.username, order=payout.order, total=payout.total, date=datetime.now(), paid=paid, ordernumber=ordernumber)
+        # Adds order from cart to Order database
+        pay = Order(userid=current_user.id, username=current_user.username, order=payout.order, total=payout.total, 
+        date=datetime.now(), paid=paid, ordernumber=ordernumber)
+        
         db.session.add(pay)
         db.session.commit()
               

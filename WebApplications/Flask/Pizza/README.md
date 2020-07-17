@@ -17,4 +17,4 @@ signup.html used to register an account
 CSS is handled by signin.css and starter-template.css
 
 
-
+Youtube preview: https://youtu.be/jD0pomDBh8Q
